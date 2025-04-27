@@ -9,10 +9,22 @@ def add_task(task):
     Input - a task to add to the list
     Return - nothing
     """
-
+    with open(TASK_FILE, "a", encoding="utf-8") as file:
+         file.write(task + "\n")
+    
 def list_tasks():
-    return
-
+    if not os.path.exists(TASK_FILE):
+        print("No tasks have been added yet.")
+        return
+    with open(TASK_FILE, "r", encoding="utf-8") as file:
+        tasks = [line.strip() for line in file.readlines()]
+        if not tasks:
+            print("Your to-do list is empty.")
+        else:
+            print("Your to-do list:")
+            for index, task in enumerate(tasks,1):
+                    print(f"{index}. {task}")               
+  
 
 def remove_task(index):
     return
