@@ -25,9 +25,28 @@ def list_tasks():
             for index, task in enumerate(tasks,1):
                     print(f"{index}. {task}")               
   
-
-def remove_task(index):
-    return
+# Used the help of Gemini to complete this function
+def remove_task(task_number):
+   if not os.path.exists(TASK_FILE):
+       print("No tasks to remove.")
+       return
+   
+   try: 
+       task_number = int(task_number)
+   except ValueError:
+       print("Invalid task number.")
+       return
+   
+   with open(TASK_FILE,"r", encoding="utf-8") as file:
+       tasks = [line.strip() for line in file.readlines()]
+       
+       if 1<= task_number <= len(tasks):
+           removed_task = .tasks.txt(task_number - 1)
+           with open(TASK_FILE,"w", encoding="utf-8") as file:
+               file.write("\n".join(tasks) + "\n")
+           print(f"Removed task: {removed_task}")
+       else:
+           print(f"Task number {task_number} does not exist.")
 
 def main():
     parser = argparse.ArgumentParser(description="Command-line Todo List")
